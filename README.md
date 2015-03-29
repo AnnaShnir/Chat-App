@@ -26,8 +26,12 @@ Create a repo on Github for your chat app.
 
 client will connect to the server
 
-client will be given a name upon entering the chat app
+client will be given a chance to type their name upon entering the chat app
+
+client's name will be stored by the server in an array
 
 client will be able to type all messages and see their own and other's messages
+
+client will be able to boot another client from the chatroom (server) by typing /kick name
 
 
