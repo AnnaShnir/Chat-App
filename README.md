@@ -1,6 +1,6 @@
 # Chat-App
 
-Server must be able to
+Server ( serverClientChat.js ) must be able to
 
 Broadcast incoming messages to each connected client
 
@@ -11,7 +11,7 @@ handle client disconnect (i.e. does not send messages to disconnected clients)
 keep a history of chat messages and broadcast the history to new clients when they connect
 
 
-Client must be able to
+Client ( clientServerChat.js ) must be able to
 
 Send messages from standard input to the server
 
@@ -33,5 +33,9 @@ client's name will be stored by the server in an array
 client will be able to type all messages and see their own and other's messages
 
 client will be able to boot another client from the chatroom (server) by typing /kick name
+
+typing /fliptable will boadcast a special message
+
+NB: all other files are scratch, created only as personal execrise. The most important ones are serverClientChat.js  and  clientServerChat.js  (i know that the filenames are confusing, but javascipt is no better).
 
 

@@ -3,11 +3,35 @@ var port = 3000;
 
 var clients = [];
 
+
+// adding startsWith ince node seems to be missing it
+String.prototype.startsWith = function(str) {
+  return this.indexOf(str) === 0;
+}
+
+
 /*
  Chat protocol.
     - name - name of the client
     - message - client posting message
  */
+
+function kickLuser(who) {
+  var deleteIndex;
+  for (var i = 0; i < clients.length; i++) {
+    if (clients[i].client === who) {
+      clients[i].socket.write("action-what-she-said|ADMIN|You've been booted.");
+      clients[i].socket.end();
+
+      deleteIndex = i;
+    }
+  }
+
+  if (deleteIndex) {    ///if deleteIndex exists
+    clients.splice(deleteIndex, 1);
+  }
+}
+
 
 function broadcastMessage(from, message) {
   for (var i = 0; i < clients.length; i++) {
@@ -55,12 +79,37 @@ var server = net.createServer(function(socket) {
     } else if (protocol[0] === 'action-client-says') {
       // client sent a chat message
 
-      console.log("New message from: " + protocol[1] + " message: " + protocol[2]);
-      
+      var receivedMessage = protocol[2];
+      console.log("New message from: " + protocol[1] + " message: " + receivedMessage);
 
-      // send the new message to every other client connected
-      broadcastMessage(protocol[1], protocol[2]);
+      if ( receivedMessage.startsWith('/') ) {
+        // client sent command:
+        var commands = receivedMessage.split(' ');
+
+        if (commands[0] === '/kick') {
+          // looks like someone is kicking someone else!
+          kickLuser(commands[1]);
+        } if (commands[0] === '/fliptable') {
+
+          broadcastMessage(protocol[1], "(╯°□°）╯︵ ┻━┻ "); 
+        }
+
+
+
+
+      } else {
+
+        // send the new message to every other client connected
+        broadcastMessage(protocol[1], receivedMessage);
+      }
     }
+
+
+
+
+
+
+
   });
 
   socket.on("end", function() {

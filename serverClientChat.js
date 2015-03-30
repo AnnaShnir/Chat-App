@@ -55,12 +55,30 @@ client.connect(3000, function() {
 			var whatSheSaid = protocol[2];
 
 			console.log(whoSaidIt + ": " + whatSheSaid);
-		}
+		}// } else if {
+
+		// 	process.stdin.on('readable', function() {
+		// 		var message = process.stdin.read();
+		// 		if (message === "/kick" + name) {
+
+		// 			client.write("action-client-says|" + clients[] + "|" + "kicked out");
+		// 		}
+		// 	});
+
+		// }
+
+
+
+
+
+
+
 
 		//console.log(data.toString().trim())	
 	});
 
 	client.on("end", function() {
 		console.log("disconnected from server");
+		client.end();
 	});
 });
